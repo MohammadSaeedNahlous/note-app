@@ -1,9 +1,7 @@
-export default function Home() {
+export default function HomePage() {
   return (
-    <main className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <h1 className="text-4xl font-semibold tracking-tight text-black dark:text-zinc-50">
-        Hello World!
-      </h1>
+    <main className="p-8">
+      <h1 className="text-2xl font-semibold">Home page — coming soon</h1>
     </main>
   );
 }
