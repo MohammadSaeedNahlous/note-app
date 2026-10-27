@@ -8,10 +8,14 @@ A notes app (rich-text notes, email/password auth, optional public sharing) buil
 
 Keep your replies extremely concise and focus on conveying the key information. No unnecessary fluff, no long code snippets.
 
+Whenever working with any third-party library or something similra, you MUST look up the official documentation to ensure that you are working with up-to-date information.
+Use the `docs-explorer` subagent for efficient documentaion lookup.
+
 Known divergences between scaffold and spec — resolve deliberately, don't assume:
 
-- The spec puts code under `src/` (`src/app`, `src/lib`, …); the scaffold uses a root-level `app/` and the `@/*` alias maps to `./*`.
-- `.env.example` uses `DB_PATH=data/app.db`; the spec uses `DATABASE_PATH=data/notes.sqlite` and also requires `BETTER_AUTH_URL`.
+- The spec puts code under `src/` (`src/app`, `src/lib`, …); this repo uses root-level `app/` and flat `lib/` (`lib/db.ts`, `lib/auth.ts`, …), with `@/*` → `./*`.
+- Schema auto-creation: `instrumentation.ts` calls `ensureDatabase()` (`lib/ensure-database.ts`, using the shared options in `lib/auth-options.ts`) on server start. It runs Better Auth's own migration engine (`getMigrations`, the same one the CLI uses), then `migrations/*.sql`. The CLI commands below still work as the explicit path.
+- `lib/db-core.ts` has no `server-only`, so scripts and tests can import it. App code imports `db` from `lib/db.ts`.
 
 ## Commands
 
@@ -27,11 +31,11 @@ bun test path/to/file.test.ts   # single test file
 bun test -t "name pattern"      # tests matching a name
 ```
 
-Database setup (once implemented, per SPEC §5.6) — order matters, because `note.userId` references `"user"`:
+Database setup (SPEC §5.6). It happens automatically on server start; to run it manually, order matters, because `note.userId` references `"user"`:
 
 ```bash
 bunx --bun auth@latest migrate   # Better Auth core tables; --bun is required to load bun:sqlite
-bun run db:migrate               # app migrations in migrations/*.sql (script not yet added)
+bun run db:migrate               # app migrations in migrations/*.sql
 ```
 
 ## Architecture (target, per SPEC)

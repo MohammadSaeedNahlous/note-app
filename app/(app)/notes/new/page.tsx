@@ -1,4 +1,8 @@
-export default function NewNotePage() {
+import { requireUser } from "@/lib/require-user";
+
+export default async function NewNotePage() {
+  await requireUser();
+
   return (
     <main className="p-8">
       <h1 className="text-2xl font-semibold">New note page — coming soon</h1>
