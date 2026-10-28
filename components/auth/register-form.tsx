@@ -32,14 +32,13 @@ export function RegisterForm() {
     setFieldErrors({});
 
     startTransition(async () => {
-      // autoSignIn is on, so a successful sign-up also creates the session.
+      // autoSignIn is off: sign-up creates the account only, so send the user to log in.
       const { error } = await authClient.signUp.email(parsed.data);
       if (error) {
         setFormError(authErrorMessage(error));
         return;
       }
-      router.replace("/notes");
-      router.refresh();
+      router.replace("/login?registered=1");
     });
   }
 

@@ -1,11 +1,8 @@
+import { redirect } from "next/navigation";
 import { requireUser } from "@/lib/require-user";
 
+// The notes list lives on /dashboard.
 export default async function NotesPage() {
   await requireUser();
-
-  return (
-    <main className="p-8">
-      <h1 className="text-2xl font-semibold">Notes dashboard — coming soon</h1>
-    </main>
-  );
+  redirect("/dashboard");
 }

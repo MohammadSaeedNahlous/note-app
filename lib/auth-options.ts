@@ -17,7 +17,7 @@ export const authOptions = {
     requireEmailVerification: false,
     minPasswordLength: MIN_PASSWORD_LENGTH,
     maxPasswordLength: MAX_PASSWORD_LENGTH,
-    autoSignIn: true,
+    autoSignIn: false,
   },
   plugins: [nextCookies()], // must stay last
 } satisfies BetterAuthOptions;

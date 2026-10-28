@@ -14,9 +14,9 @@ export function openDatabase(filename: string = resolveDatabasePath()): Database
   if (filename !== ":memory:") mkdirSync(path.dirname(filename), { recursive: true });
 
   const db = new Database(filename, { create: true, strict: true });
+  db.run("PRAGMA busy_timeout = 5000"); // first, so the WAL switch below waits instead of failing
   db.run("PRAGMA journal_mode = WAL");
   db.run("PRAGMA foreign_keys = ON");
-  db.run("PRAGMA busy_timeout = 5000");
   return db;
 }
 

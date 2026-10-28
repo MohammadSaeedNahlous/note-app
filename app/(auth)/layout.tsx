@@ -2,7 +2,7 @@ import { redirect } from "next/navigation";
 import { getUser } from "@/lib/require-user";
 
 export default async function AuthLayout({ children }: { children: React.ReactNode }) {
-  if (await getUser()) redirect("/notes");
+  if (await getUser()) redirect("/dashboard");
 
   return (
     <main className="flex min-h-dvh items-center justify-center px-4 py-12">

@@ -30,7 +30,7 @@ export function LoginForm() {
         setFormError(authErrorMessage(error));
         return;
       }
-      router.replace("/notes");
+      router.replace("/dashboard");
       router.refresh();
     });
   }
